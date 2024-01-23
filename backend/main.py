@@ -1,9 +1,11 @@
 import shutil
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse, FileResponse
 from pathlib import Path
 from io import BytesIO
+from fastapi.responses import StreamingResponse
+
+from processing.processing import process_video
 
 app = FastAPI()
 
@@ -20,17 +22,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-import time
-
-# uploads_directory = Path("uploads/")
+uploads_directory = Path("uploads/")
 
 
 @app.post("/upload")
-def upload(video: UploadFile = File()):
-    content = video.file.read()
+async def upload(video: UploadFile = File(), fps: int = Form()):
+    print("FPS: ", fps)
+    input_video_path = uploads_directory / video.filename
 
-    content_stream = BytesIO(content)
-    # Дополнительные действия с контентом, если необходимо
+    print("File path: ", input_video_path)
 
-    return StreamingResponse(content_stream, media_type=video.headers['content-type'], headers={
-        "Content-Disposition": f"filename={video.filename}"})
+    with input_video_path.open("wb") as uploaded_file:
+        shutil.copyfileobj(video.file, uploaded_file)
+
+    processed_video_path = process_video(input_video_path, fps)
+    print("Processed video path: ", processed_video_path)
+
+    with processed_video_path.open("rb") as processed_video:
+        content = processed_video.read()
+        content_stream = BytesIO(content)
+        return StreamingResponse(content_stream, media_type="video/mp4", headers={
+            "Content-Disposition": f"filename={video.filename}"})
+    # input_video_path.unlink()
+    # processed_video_path.unlink()

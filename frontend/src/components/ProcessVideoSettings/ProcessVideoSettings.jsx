@@ -1,8 +1,13 @@
 import classes from "./ProcessVideoSettings.module.css"
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
-    const [FPS, setFPS] = useState(16);
+    const [FPS, setFPS] = useState(1);
+    const [processButtonDisabled, setProcessButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        setProcessButtonDisabled(!uploadedVideo)
+    }, [uploadedVideo]);
 
     const handleSelectChange = (e) => {
         const newValue = parseInt(e.target.value, 10);
@@ -14,7 +19,10 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
 
         let formData = new FormData();
         formData.append('video', uploadedVideo);
+        formData.append('fps', FPS);
+        console.log("FPS: ", FPS);
 
+        setProcessButtonDisabled(true);
         try {
             let url = `http://127.0.0.1:8000/upload`;
 
@@ -37,6 +45,7 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
         } catch (error) {
             console.error('Error uploading video:', error.message);
         }
+        setProcessButtonDisabled(false);
     }
 
     return (
@@ -45,6 +54,10 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
                 <text style={{fontSize: 32, fontFamily: "Inter"}}>FPS</text>
                 <select id="fps" style={{padding: "5%", width: "72px", height: "48px", fontSize: "24px"}}
                         onChange={handleSelectChange}>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={4}>4</option>
+                    <option value={8}>8</option>
                     <option value={16}>16</option>
                     <option value={32}>32</option>
                     <option value={48}>48</option>
@@ -52,7 +65,7 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
                 </select>
             </div>
             <div style={{height: "10%"}}></div>
-            <button className={classes.ProcessVideoButton} onClick={requestVideoProcess}>Process</button>
+            <button id="processButton" className={classes.ProcessVideoButton} onClick={requestVideoProcess} disabled={processButtonDisabled}>Process</button>
         </div>
     )
 }

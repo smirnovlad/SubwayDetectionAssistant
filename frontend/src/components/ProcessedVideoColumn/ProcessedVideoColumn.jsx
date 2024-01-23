@@ -31,7 +31,7 @@ const ProcessedVideoColumn = ({processedVideo}) => {
             {
                 processedVideoUrl &&
                 <video width="100%" height="80%" style={{ objectFit: 'cover' }} controls>
-                  <source src={processedVideoUrl} type="video/mp4" />
+                  <source src={processedVideoUrl} type="video/mp4; codecs=avc1" />
                   Your browser does not support the video tag.
                 </video>
             }

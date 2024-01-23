@@ -31,3 +31,9 @@
 .ProcessVideoButton:hover {
     border-width: 2px;
 }
+
+.ProcessVideoButton:disabled {
+  background: #999;
+  color: #555;
+  cursor: not-allowed;
+}
