@@ -2,15 +2,14 @@ import classes from "./InputVideoColumn.module.css"
 import React, { useState } from 'react';
 import cameraPlaceholder from "../../img/SecurityCameraPNGImage.png"
 
-const InputVideoColumn = () => {
+const InputVideoColumn = (props) => {
     const [videoUrl, setVideoUrl] = useState(null);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-
         const videoObjectUrl = URL.createObjectURL(file);
-
         setVideoUrl(videoObjectUrl);
+        props.onVideoUploaded(file);
     };
 
     return (
