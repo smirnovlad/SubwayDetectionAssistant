@@ -10,10 +10,10 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
     };
 
     const requestVideoProcess = async () => {
-        console.log(uploadedVideo);
+        console.log("Uploaded video: ", uploadedVideo);
 
-        const formData = new FormData();
-        formData.append('file', uploadedVideo);
+        let formData = new FormData();
+        formData.append('video', uploadedVideo);
 
         try {
             let url = `http://127.0.0.1:8000/upload`;
@@ -23,8 +23,17 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
                 body: formData,
             });
 
-            let result = await response.json();
-            onVideoProcessed(result.processed_video);
+            console.log("Response: ", response);
+
+            let videoData = await response.arrayBuffer();
+
+            console.log("Result: ", videoData);
+
+            const videoBlob = new Blob([videoData], { type: 'video/mp4' });
+            const videoFile = new File([videoBlob], uploadedVideo.name, { type: 'video/mp4' });
+            console.log("Video file: ", videoFile);
+
+            onVideoProcessed(videoFile);
         } catch (error) {
             console.error('Error uploading video:', error.message);
         }

@@ -7,23 +7,7 @@ const ProcessedVideoColumn = ({processedVideo}) => {
 
     useEffect(() => {
         if (processedVideo) {
-            console.log("Processed video: ", processedVideo);
-
-            const fileData = processedVideo.file._file;
-            const arrayBuffer = fileData._file;
-
-            // Create a Uint8Array from the array buffer
-            const uint8Array = new Uint8Array(arrayBuffer);
-
-            // Create a Blob from the Uint8Array
-            const blob = new Blob([uint8Array], { type: processedVideo.headers['content-type'] });
-
-            // Create a File object from the Blob
-            const file = new File([blob], processedVideo.filename, { type: processedVideo.headers['content-type'] });
-
-            console.log("File: ", file)
-
-            const videoObjectUrl = URL.createObjectURL(file);
+            const videoObjectUrl = URL.createObjectURL(processedVideo);
             setProcessedVideoUrl(videoObjectUrl);
         }
     }, [processedVideo])
