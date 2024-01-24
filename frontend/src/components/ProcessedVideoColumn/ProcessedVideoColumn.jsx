@@ -7,6 +7,10 @@ const ProcessedVideoColumn = ({processedVideo}) => {
 
     useEffect(() => {
         if (processedVideo) {
+            if (processedVideoUrl) {
+                URL.revokeObjectURL(processedVideoUrl);
+            }
+
             const videoObjectUrl = URL.createObjectURL(processedVideo);
             setProcessedVideoUrl(videoObjectUrl);
         }
@@ -30,8 +34,8 @@ const ProcessedVideoColumn = ({processedVideo}) => {
             }
             {
                 processedVideoUrl &&
-                <video width="100%" height="80%" style={{ objectFit: 'cover' }} controls>
-                  <source src={processedVideoUrl} type="video/mp4; codecs=avc1" />
+                <video width="100%" height="80%" style={{ objectFit: 'cover' }} src={processedVideoUrl} controls>
+                  <source type="video/mp4; codecs=avc1" />
                   Your browser does not support the video tag.
                 </video>
             }

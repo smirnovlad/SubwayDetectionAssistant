@@ -1,19 +1,17 @@
 from pathlib import Path
-from .video_utils import split_video_to_images, create_video_from_images
+from .video_utils import fragment_video, create_video_from_images
 from .ml.utils import process_images
+from .folder_utils import clear_folders
 
-import shutil
-
-IMAGES_FOLDER = Path("output_images")
-RESULT_WITH_NO_AUDIO_PATH = Path("processed/result_with_no_audio.mp4")
+IMAGES_FOLDER = Path("uploads/frames")
+PROCESSED_FRAMES_FOLDER = Path("processed/result_frames")
 PROCESSED_VIDEO_PATH = Path("processed/processed_video.mp4")
 
 
-def process_video(path_to_file: Path, fps: int) -> Path:
-    split_video_to_images(video_path=path_to_file, output_folder=IMAGES_FOLDER, fps=fps)
-    process_images(input_folder=IMAGES_FOLDER)
-    create_video_from_images(input_folder=IMAGES_FOLDER, output_video_path=PROCESSED_VIDEO_PATH, fps=fps)
-
-    # shutil.rmtree(OUTPUT_FOLDER)
+def process_video(path_to_file: Path, mode: str, fps: int) -> Path:
+    clear_folders([IMAGES_FOLDER, PROCESSED_FRAMES_FOLDER])
+    fragment_video(video_path=path_to_file, output_folder=IMAGES_FOLDER, fps=fps)
+    process_images(input_folder=IMAGES_FOLDER, mode=mode, output_folder=PROCESSED_FRAMES_FOLDER)
+    create_video_from_images(input_folder=PROCESSED_FRAMES_FOLDER, output_video_path=PROCESSED_VIDEO_PATH, fps=fps)
 
     return PROCESSED_VIDEO_PATH

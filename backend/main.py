@@ -22,20 +22,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-uploads_directory = Path("uploads/")
+UPLOADED_VIDEO_FOLDER = Path("uploads/")
 
 
 @app.post("/upload")
-async def upload(video: UploadFile = File(), fps: int = Form()):
-    print("FPS: ", fps)
-    input_video_path = uploads_directory / video.filename
+async def upload(video: UploadFile = File(), mode: str = Form(), fps: int = Form()):
+    print(f"Mode: {mode}, FPS: {fps}")
+    uploaded_video_path = UPLOADED_VIDEO_FOLDER / video.filename
 
-    print("File path: ", input_video_path)
+    print("File path: ", uploaded_video_path)
 
-    with input_video_path.open("wb") as uploaded_file:
+    with uploaded_video_path.open("wb") as uploaded_file:
         shutil.copyfileobj(video.file, uploaded_file)
 
-    processed_video_path = process_video(input_video_path, fps)
+    processed_video_path = process_video(path_to_file=uploaded_video_path, mode=mode, fps=fps)
     print("Processed video path: ", processed_video_path)
 
     with processed_video_path.open("rb") as processed_video:
@@ -43,5 +43,5 @@ async def upload(video: UploadFile = File(), fps: int = Form()):
         content_stream = BytesIO(content)
         return StreamingResponse(content_stream, media_type="video/mp4", headers={
             "Content-Disposition": f"filename={video.filename}"})
-    # input_video_path.unlink()
+    # uploaded_video_path.unlink()
     # processed_video_path.unlink()

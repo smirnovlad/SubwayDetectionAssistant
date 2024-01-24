@@ -1,5 +1,5 @@
 import classes from "./InputVideoColumn.module.css"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cameraPlaceholder from "../../img/SecurityCameraPNGImage.png"
 
 const InputVideoColumn = (props) => {
@@ -7,6 +7,9 @@ const InputVideoColumn = (props) => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+        if (videoUrl) {
+            URL.revokeObjectURL(videoUrl);
+        }
         const videoObjectUrl = URL.createObjectURL(file);
         setVideoUrl(videoObjectUrl);
         props.onVideoUploaded(file);
@@ -30,8 +33,8 @@ const InputVideoColumn = (props) => {
             }
             {
                 videoUrl &&
-                <video width="100%" height="80%" style={{ objectFit: 'cover' }} controls>
-                  <source src={videoUrl} type="video/mp4" />
+                <video width="100%" height="80%" style={{ objectFit: 'cover' }} src={videoUrl} controls>
+                  <source type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
             }

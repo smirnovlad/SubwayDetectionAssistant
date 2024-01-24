@@ -2,14 +2,20 @@ import classes from "./ProcessVideoSettings.module.css"
 import {useState, useEffect} from "react";
 
 const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
-    const [FPS, setFPS] = useState(1);
+    const [Mode, setMode] = useState();
+    const [FPS, setFPS] = useState();
     const [processButtonDisabled, setProcessButtonDisabled] = useState(true);
 
     useEffect(() => {
-        setProcessButtonDisabled(!uploadedVideo)
-    }, [uploadedVideo]);
+        setProcessButtonDisabled(!(uploadedVideo && Mode && FPS))
+    }, [uploadedVideo, Mode, FPS]);
 
-    const handleSelectChange = (e) => {
+    const handleModeSelectChange = (e) => {
+        const newValue = e.target.value;
+        setMode(newValue);
+    }
+
+    const handleFPSSelectChange = (e) => {
         const newValue = parseInt(e.target.value, 10);
         setFPS(newValue);
     };
@@ -19,8 +25,10 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
 
         let formData = new FormData();
         formData.append('video', uploadedVideo);
-        formData.append('fps', FPS);
+        console.log("Mode: ", Mode);
+        formData.append("mode", Mode);
         console.log("FPS: ", FPS);
+        formData.append('fps', FPS);
 
         setProcessButtonDisabled(true);
         try {
@@ -51,9 +59,22 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
     return (
         <div className={classes.ProcessVideoSettings}>
             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                <text style={{fontSize: 32, fontFamily: "Inter"}}>Mode</text>
+                <select id="ModeSelect" style={{padding: "5%", width: "100px", height: "48px", fontSize: "24px"}}
+                        onChange={handleModeSelectChange}>
+                    <option value={""}></option>
+                    <option value={"Fragmentation"}>FRAG (Just fragmentation)</option>
+                    <option value={"Segmentation"}>SEG (Segmentation)</option>
+                    <option value={"HPE"}>HPE (Human pose estimation)</option>
+                    <option value={"Detection"}>DET (Detection)</option>
+                </select>
+            </div>
+            <div style={{height: "10%"}}></div>
+            <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                 <text style={{fontSize: 32, fontFamily: "Inter"}}>FPS</text>
-                <select id="fps" style={{padding: "5%", width: "72px", height: "48px", fontSize: "24px"}}
-                        onChange={handleSelectChange}>
+                <select id="fpsSelect" style={{padding: "5%", width: "100px", height: "48px", fontSize: "24px"}}
+                        onChange={handleFPSSelectChange}>
+                    <option value={""}></option>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                     <option value={4}>4</option>
