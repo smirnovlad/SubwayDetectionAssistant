@@ -66,6 +66,7 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
                     <option value={"Fragmentation"}>FRAG (Just fragmentation)</option>
                     <option value={"Segmentation"}>SEG (Segmentation)</option>
                     <option value={"HPE"}>HPE (Human pose estimation)</option>
+                    <option value={"HPE, SEG"}>HPE + SEG</option>
                     <option value={"Detection"}>DET (Detection)</option>
                 </select>
             </div>
@@ -81,8 +82,6 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
                     <option value={8}>8</option>
                     <option value={16}>16</option>
                     <option value={32}>32</option>
-                    <option value={48}>48</option>
-                    <option value={64}>64</option>
                 </select>
             </div>
             <div style={{height: "10%"}}></div>

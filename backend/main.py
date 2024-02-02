@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from io import BytesIO
 from fastapi.responses import StreamingResponse
+import asyncio
 
 from processing.processing import process_video
 
@@ -35,7 +36,9 @@ async def upload(video: UploadFile = File(), mode: str = Form(), fps: int = Form
     with uploaded_video_path.open("wb") as uploaded_file:
         shutil.copyfileobj(video.file, uploaded_file)
 
-    processed_video_path = process_video(path_to_file=uploaded_video_path, mode=mode, fps=fps)
+    process_video_task = asyncio.create_task(process_video(path_to_file=uploaded_video_path, mode=mode, fps=fps))
+    await process_video_task
+    processed_video_path = process_video_task.result()
     print("Processed video path: ", processed_video_path)
 
     with processed_video_path.open("rb") as processed_video:
@@ -43,5 +46,3 @@ async def upload(video: UploadFile = File(), mode: str = Form(), fps: int = Form
         content_stream = BytesIO(content)
         return StreamingResponse(content_stream, media_type="video/mp4", headers={
             "Content-Disposition": f"filename={video.filename}"})
-    # uploaded_video_path.unlink()
-    # processed_video_path.unlink()

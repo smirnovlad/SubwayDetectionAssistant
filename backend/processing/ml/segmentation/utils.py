@@ -31,7 +31,8 @@ def shrink_image(img, channels=None):
         return img[:, delta // 2: width - delta // 2]
 
 
-def segment_images(input_folder: Path, output_folder: Path):
+# TODO: async
+async def segment_images(input_folder: Path, output_folder: Path):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Function: {segment_images.__name__}. Device: {device}")
 
@@ -59,5 +60,5 @@ def segment_images(input_folder: Path, output_folder: Path):
     for i, mask in enumerate(masks):
         mask = shrink_image(np.array(mask.cpu()))
         processed_frame = Image.fromarray(mask)
-        image_filename = os.path.join(output_folder.as_posix(), f"processed_frame_{i}.jpg")
+        image_filename = os.path.join(output_folder.as_posix(), f"frame_{i}.jpg")
         processed_frame.save(image_filename)

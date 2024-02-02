@@ -8,10 +8,10 @@ PROCESSED_FRAMES_FOLDER = Path("processed/result_frames")
 PROCESSED_VIDEO_PATH = Path("processed/processed_video.mp4")
 
 
-def process_video(path_to_file: Path, mode: str, fps: int) -> Path:
+async def process_video(path_to_file: Path, mode: str, fps: int) -> Path:
     clear_folders([IMAGES_FOLDER, PROCESSED_FRAMES_FOLDER])
     fragment_video(video_path=path_to_file, output_folder=IMAGES_FOLDER, fps=fps)
-    process_images(input_folder=IMAGES_FOLDER, mode=mode, output_folder=PROCESSED_FRAMES_FOLDER)
+    await process_images(input_folder=IMAGES_FOLDER, mode=mode, output_folder=PROCESSED_FRAMES_FOLDER)
     create_video_from_images(input_folder=PROCESSED_FRAMES_FOLDER, output_video_path=PROCESSED_VIDEO_PATH, fps=fps)
 
     return PROCESSED_VIDEO_PATH
