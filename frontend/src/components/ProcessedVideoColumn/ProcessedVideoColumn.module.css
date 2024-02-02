@@ -1,0 +1,11 @@
+.ProcessedVideoColumn {
+    /*border-color: black;*/
+    /*border-style: solid;*/
+    height: 90%;
+    width: 25%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}

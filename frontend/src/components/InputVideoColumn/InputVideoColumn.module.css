@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.InputVideoColumn {
+    /*border-color: black;*/
+    /*border-style: solid;*/
+    height: 90%;
+    width: 25%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.ChooseVideoButton {
+    height: 10%;
+    width: 80%;
+    border-radius: 10px;
+
+    font-size: 32px;
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #07A6FF;
+    color: #FFFFFF;
+    border-width: 0;
+}
+
+.ChooseVideoButton:hover {
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.ChooseVideoButton:hover {
+    border-width: 2px;
+}

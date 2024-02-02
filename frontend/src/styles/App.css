@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap');
+
+#root {
+    justify-content: center;
+    height:100%
+}
+
+.App {
+    width: 100%;
+    height:100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Header {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200; /* Extra Light */
+    font-size: 64px;
+}

@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.ProcessVideoSettings {
+    height: 25%;
+    width: 15%;
+    /*border-style: solid;*/
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.ProcessVideoButton {
+    height: 25%;
+    width: 100%;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    background-color: #07A6FF;
+    color: #FFFFFF;
+    border-width: 0;
+}
+
+.ProcessVideoButton:hover {
+    border-width: 2px;
+}
+
+.ProcessVideoButton:disabled {
+  background: #999;
+  color: #555;
+  cursor: not-allowed;
+}
