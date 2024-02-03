@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 from PIL import Image
 import glob
 import os
+from tqdm import tqdm
 
 TRAINED_SEGNET_FILE_NAME = "./segnet_bce_1125_45_epoch.pth"
 
@@ -38,7 +39,7 @@ async def segment_images(input_folder: Path, output_folder: Path):
 
     model = SegNet().to(device)
     module_path = Path(__file__).resolve().parent
-    model.load_state_dict(torch.load(module_path / TRAINED_SEGNET_FILE_NAME))
+    model.load_state_dict(torch.load(module_path / TRAINED_SEGNET_FILE_NAME, map_location=torch.device(device)))
 
     images = []
 
@@ -50,7 +51,7 @@ async def segment_images(input_folder: Path, output_folder: Path):
 
     model.eval()
     with torch.no_grad():
-        for img in images:
+        for img in tqdm(images):
             img = extend_image(img, 3)
             img = torch.FloatTensor(np.rollaxis(np.array(img)[np.newaxis, :], 3, 1)).to(device)
 

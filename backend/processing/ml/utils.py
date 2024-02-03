@@ -22,7 +22,7 @@ async def process_images(input_folder: Path, mode: str, output_folder: Path):
         copy_folder(SEGMENTED_FRAMES_FOLDER, output_folder)
     elif mode == "HPE":
         clear_folders([HPE_FRAMES_FOLDER])
-        _ = hpe_images(input_folder=input_folder, output_folder=HPE_FRAMES_FOLDER)
+        await hpe_images(input_folder=input_folder, output_folder=HPE_FRAMES_FOLDER)
         copy_folder(HPE_FRAMES_FOLDER, output_folder)
     else:
         clear_folders([SEGMENTED_FRAMES_FOLDER, HPE_FRAMES_FOLDER, HPE_SEG_FRAMES_FOLDER, DETECTION_FRAMES_FOLDER])

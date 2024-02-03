@@ -8,7 +8,7 @@ The project aims to create a solution to enhance the safety of citizens on subwa
 
 To test the developed solution, I created a single-page web application where users can upload subway platform videos and receive output videos detecting individuals who have crossed the safety line.
 
-The results of this work can also be applied in processing real-time streaming video from subway surveillance cameras.
+The results of this work can also be applied in processing real-time streaming video from subway surveillance cameras. To enhance citizen safety on the metro platform, a system of fines for crossing the safety line before the train arrives could be implemented. It would be sufficient to install several cameras along the tracks, focused on the platform, for personal identification purposes.
 
 ## Implementation details
 
@@ -18,7 +18,7 @@ The results of this work can also be applied in processing real-time streaming v
 
 I used a state-of-the-art model, YOLOv8, specifically the pose estimation model, to determine the positions of people on the platform. Currently, I only utilize bounding boxes around people, but I focused specifically on the pose estimation task rather than the person detection task because in the future, information about key points of the human body (such as feet) will improve the performance quality of the application. The model of this architecture didn't need to be trained. A pre-trained implementation available online shows excellent results.
 
-Download the model: [link](https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8m-pose.pt)
+Download the model: [link](backend/processing/ml/human_pose_estimation/yolov8m-pose.pt)
 
 ### Segmentation
 
@@ -29,6 +29,8 @@ For the segmentation architecture, I chose SegNet. The segmentation model identi
 #### Model training
 
 I trained the model for 45 epochs, gradually decreasing the learning rate after a certain number of epochs. Training notebook: [link](research/segmentation/Segmentation_1125.ipynb)
+
+Download the model: [link](backend/processing/ml/segmentation/segnet_bce_1125_45_epoch.pth)
 
 ### Web App
 

@@ -4,7 +4,7 @@ import torch
 from ultralytics.utils.plotting import Annotator
 import cv2
 
-model = YOLO('yolov8m-pose.pt')
+model = YOLO('./yolov8m-pose.pt')
 
 # TODO: async
 async def hpe_images(input_folder: Path, output_folder: Path):
