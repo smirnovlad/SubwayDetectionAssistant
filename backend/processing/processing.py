@@ -1,11 +1,13 @@
 from pathlib import Path
-from .video_utils import fragment_video, create_video_from_images
+
+from .folder_utils import clear_folders, create_folders
 from .ml.utils import process_images
-from .folder_utils import clear_folders
+from .video_utils import fragment_video, create_video_from_images
 
 IMAGES_FOLDER = Path("uploads/frames")
 PROCESSED_FRAMES_FOLDER = Path("processed/result_frames")
 PROCESSED_VIDEO_PATH = Path("processed/processed_video.mp4")
+create_folders([IMAGES_FOLDER, PROCESSED_FRAMES_FOLDER])
 
 
 async def process_video(path_to_file: Path, mode: str, fps: int) -> Path:
