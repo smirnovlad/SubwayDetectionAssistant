@@ -1,5 +1,4 @@
 .idea
 *.pyc
-*.pth
 *.pt
 *.mp4

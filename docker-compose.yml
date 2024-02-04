@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+        - "8000:8000"
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    command: serve -s /usr/src/app/build -l 3000
+    depends_on:
+      - backend

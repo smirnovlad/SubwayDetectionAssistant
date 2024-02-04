@@ -16,6 +16,10 @@ def clear_folders(folders):
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
 
+def create_folders(folders):
+    for folder in folders:
+        folder.mkdir(parents=True, exist_ok=True)
+
 
 def copy_folder(src_folder: Path, dest_folder: Path):
     for filename in os.listdir(src_folder):

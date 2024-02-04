@@ -1,0 +1,10 @@
+fastapi==0.109.1
+pydantic>=1.8.0,<2.0.0
+uvicorn>=0.15.0,<0.16.0
+python-multipart
+matplotlib==3.8.2
+numpy==1.24.2
+Pillow==10.2.0
+torch==2.1.2
+tqdm==4.66.1
+ultralytics==8.1.3
