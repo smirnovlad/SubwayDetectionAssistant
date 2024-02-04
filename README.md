@@ -10,6 +10,14 @@ To test the developed solution, I created a single-page web application where us
 
 The results of this work can also be applied in processing real-time streaming video from subway surveillance cameras. To enhance citizen safety on the metro platform, a system of fines for crossing the safety line before the train arrives could be implemented. It would be sufficient to install several cameras along the tracks, focused on the platform, for personal identification purposes.
 
+## Example
+
+Coming soon.
+
+Website: [link](http://51.250.83.97:3000/)
+
+Recordings from the video camera: [link](https://drive.google.com/drive/folders/1griTlB1BhWMGeoeSK0ap2C0pnm9OlVBg?usp=drive_link)
+
 ## Implementation details
 
 ### Human Pose Estimation 🧘🏻
@@ -54,6 +62,8 @@ However, I encountered the following issues during the development of the applic
     To solve this problem, I used the OpenCV library implementation provided by the conda package manager.
 
 ### Web App 🌐
+
+The developed interface allows the user to upload a video recording of the metro platform, select the FPS for segmenting the uploaded recording, as well as one of the video stream processing modes: fragmentation, segmentation, human pose estimation, detection.
 
 #### Backend
 
