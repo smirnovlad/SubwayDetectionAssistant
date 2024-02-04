@@ -1,20 +1,24 @@
 import asyncio
 import shutil
 from io import BytesIO
-from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
-from processing.folder_utils import create_folders
+from config import *
+from processing.folder_utils import create_folders, clear_folders
 from processing.processing import process_video
 
 app = FastAPI()
 
+HOST = "51.250.83.97"
+
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    f"http://{HOST}",
+    f"http://{HOST}:3000",
 ]
 
 app.add_middleware(
@@ -25,12 +29,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-UPLOADED_VIDEO_FOLDER = Path("uploads/")
 create_folders([UPLOADED_VIDEO_FOLDER])
 
 
 @app.post("/upload")
 async def upload(video: UploadFile = File(), mode: str = Form(), fps: int = Form()):
+    clear_folders([UPLOADED_VIDEO_FOLDER])
     print(f"Mode: {mode}, FPS: {fps}")
     uploaded_video_path = UPLOADED_VIDEO_FOLDER / video.filename
 

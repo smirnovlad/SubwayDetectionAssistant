@@ -1,5 +1,6 @@
-import classes from "./ProcessVideoSettings.module.css"
+import classes from "./ProcessVideoSettings.module.css";
 import {useState, useEffect} from "react";
+import {HOST} from "../../api/config";
 
 const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
     const [Mode, setMode] = useState();
@@ -32,7 +33,7 @@ const ProcessVideoSettings = ({uploadedVideo, onVideoProcessed}) => {
 
         setProcessButtonDisabled(true);
         try {
-            let url = `http://127.0.0.1:8000/upload`;
+            let url = `http://${HOST}:8000/upload`;
 
             const response = await fetch(url, {
                 method: 'POST',
