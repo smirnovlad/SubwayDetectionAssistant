@@ -63,7 +63,7 @@ However, I encountered the following issues during the development of the applic
 
 ### Web App 🌐
 
-The developed interface allows the user to upload a video recording of the metro platform, select the FPS for segmenting the uploaded recording, as well as one of the video stream processing modes: fragmentation, segmentation, human pose estimation, detection.
+The developed interface allows the user to upload a video recording of the metro platform, select the FPS for segmenting the uploaded recording, as well as one of the video stream processing modes: fragmentation, segmentation, human pose estimation, detection. It's running on a virtual machine rented in the Yandex.Cloud.
 
 #### Backend
 
