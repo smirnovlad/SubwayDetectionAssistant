@@ -12,9 +12,13 @@ from processing.processing import process_video
 
 app = FastAPI()
 
+HOST = "51.250.83.97"
+
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    f"http://{HOST}",
+    f"http://{HOST}:3000",
 ]
 
 app.add_middleware(
