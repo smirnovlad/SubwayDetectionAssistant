@@ -97,3 +97,5 @@ An example of edge segmentation of a platform on an unannotated platform:
 
 * Add tests and quality metrics for the classifier that determines whether a person crossed the line or not
 * Add support for real-time streaming video processing
+* Explore the possibility of resizing images (using various interpolation methods) to enhance the quality of the algorithm
+* The use of morphological transformations of segmentation masks (dilation, erosion, etc.) for noise and interference removal. Skeletonization can also be used to highlight the main connected component
